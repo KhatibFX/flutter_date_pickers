@@ -42,6 +42,9 @@ class DayBasedChangeablePicker<T> extends StatefulWidget {
   /// The latest date the user is permitted to pick.
   final DateTime lastDate;
 
+  /// show week number;
+  final bool showWeekNumber;
+
   /// Date for defining what month should be shown initially.
   ///
   /// Default value is [selection.earliest].
@@ -75,6 +78,7 @@ class DayBasedChangeablePicker<T> extends StatefulWidget {
       required this.onChanged,
       required this.firstDate,
       required this.lastDate,
+        required this.showWeekNumber,
       required this.datePickerLayoutSettings,
       required this.datePickerStyles,
       required this.selectablePicker,
@@ -265,6 +269,7 @@ class _DayBasedChangeablePickerState<T>
       firstDate: widget.firstDate,
       lastDate: widget.lastDate,
       displayedMonth: targetDate,
+      showWeekNumber: widget.showWeekNumber,
       datePickerLayoutSettings: widget.datePickerLayoutSettings,
       selectedPeriodKey: widget.datePickerKeys?.selectedPeriodKeys,
       datePickerStyles: _resultStyles,

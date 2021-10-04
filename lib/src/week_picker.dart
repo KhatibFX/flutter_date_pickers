@@ -21,6 +21,7 @@ class WeekPicker extends StatelessWidget {
       required this.onChanged,
       required this.firstDate,
       required this.lastDate,
+      this.showWeekNumber = false,
       this.initiallyShowDate,
       this.datePickerLayoutSettings = const DatePickerLayoutSettings(),
       this.datePickerStyles,
@@ -33,10 +34,10 @@ class WeekPicker extends StatelessWidget {
         assert(!lastDate.isBefore(firstDate)),
         assert(!selectedDate.isBefore(firstDate)),
         assert(!selectedDate.isAfter(lastDate)),
-        assert(initiallyShowDate == null
-            || !initiallyShowDate.isAfter(lastDate)),
-        assert(initiallyShowDate == null
-            || !initiallyShowDate.isBefore(firstDate)),
+        assert(
+            initiallyShowDate == null || !initiallyShowDate.isAfter(lastDate)),
+        assert(initiallyShowDate == null ||
+            !initiallyShowDate.isBefore(firstDate)),
         super(key: key);
 
   /// The currently selected date.
@@ -57,6 +58,9 @@ class WeekPicker extends StatelessWidget {
 
   /// The latest date the user is permitted to pick.
   final DateTime lastDate;
+
+  /// Show week number
+  final bool showWeekNumber;
 
   /// Date for defining what month should be shown initially.
   ///
@@ -104,6 +108,7 @@ class WeekPicker extends StatelessWidget {
       selection: DayPickerSingleSelection(selectedDate),
       firstDate: firstDate,
       lastDate: lastDate,
+      showWeekNumber: showWeekNumber,
       initiallyShownDate: initiallyShowDate,
       onChanged: onChanged,
       onSelectionError: onSelectionError,

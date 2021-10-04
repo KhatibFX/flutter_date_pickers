@@ -11,99 +11,94 @@ import 'layout_settings.dart';
 
 /// Date picker for selection one day.
 class DayPicker<T extends Object> extends StatelessWidget {
-  DayPicker._({Key? key,
-    required this.onChanged,
-    required this.firstDate,
-    required this.lastDate,
-    required this.selectionLogic,
-    required this.selection,
-    this.initiallyShowDate,
-    this.datePickerLayoutSettings = const DatePickerLayoutSettings(),
-    this.datePickerStyles,
-    this.datePickerKeys,
-    this.selectableDayPredicate,
-    this.eventDecorationBuilder,
-    this.onMonthChanged}) : super(key: key);
+  DayPicker._(
+      {Key? key,
+      required this.onChanged,
+      required this.firstDate,
+      required this.lastDate,
+      this.showWeekNumber = false,
+      required this.selectionLogic,
+      required this.selection,
+      this.initiallyShowDate,
+      this.datePickerLayoutSettings = const DatePickerLayoutSettings(),
+      this.datePickerStyles,
+      this.datePickerKeys,
+      this.selectableDayPredicate,
+      this.eventDecorationBuilder,
+      this.onMonthChanged})
+      : super(key: key);
 
   /// Creates a day picker where only one single day can be selected.
   ///
   /// See also:
   /// * [DayPicker.multi] - day picker where many single days can be selected.
-  static DayPicker<DateTime> single({
-    Key? key,
-    required DateTime selectedDate,
-    required ValueChanged<DateTime> onChanged,
-    required DateTime firstDate,
-    required DateTime lastDate,
-    DatePickerLayoutSettings datePickerLayoutSettings
-      = const DatePickerLayoutSettings(),
-    DateTime? initiallyShowDate,
-    DatePickerRangeStyles? datePickerStyles,
-    DatePickerKeys? datePickerKeys,
-    SelectableDayPredicate? selectableDayPredicate,
-    EventDecorationBuilder? eventDecorationBuilder,
-    ValueChanged<DateTime>? onMonthChanged
-  })
-  {
+  static DayPicker<DateTime> single(
+      {Key? key,
+      required DateTime selectedDate,
+      required ValueChanged<DateTime> onChanged,
+      required DateTime firstDate,
+      required DateTime lastDate,
+      DatePickerLayoutSettings datePickerLayoutSettings =
+          const DatePickerLayoutSettings(),
+      DateTime? initiallyShowDate,
+      DatePickerRangeStyles? datePickerStyles,
+      DatePickerKeys? datePickerKeys,
+      SelectableDayPredicate? selectableDayPredicate,
+      EventDecorationBuilder? eventDecorationBuilder,
+      ValueChanged<DateTime>? onMonthChanged}) {
     assert(!firstDate.isAfter(lastDate));
     assert(!lastDate.isBefore(firstDate));
     assert(!selectedDate.isBefore(firstDate));
     assert(!selectedDate.isAfter(lastDate));
-    assert(initiallyShowDate == null
-        || !initiallyShowDate.isAfter(lastDate));
-    assert(initiallyShowDate == null
-    || !initiallyShowDate.isBefore(firstDate));
+    assert(initiallyShowDate == null || !initiallyShowDate.isAfter(lastDate));
+    assert(initiallyShowDate == null || !initiallyShowDate.isBefore(firstDate));
 
     final selection = DayPickerSingleSelection(selectedDate);
-    final selectionLogic = DaySelectable(
-    selectedDate, firstDate, lastDate,
-    selectableDayPredicate: selectableDayPredicate);
+    final selectionLogic = DaySelectable(selectedDate, firstDate, lastDate,
+        selectableDayPredicate: selectableDayPredicate);
 
     return DayPicker<DateTime>._(
-        onChanged: onChanged,
-        firstDate: firstDate,
-        lastDate: lastDate,
-        initiallyShowDate: initiallyShowDate,
-        selectionLogic: selectionLogic,
-        selection: selection,
-        eventDecorationBuilder: eventDecorationBuilder,
-        onMonthChanged: onMonthChanged,
-        selectableDayPredicate: selectableDayPredicate,
-        datePickerKeys: datePickerKeys,
-        datePickerStyles: datePickerStyles,
-        datePickerLayoutSettings: datePickerLayoutSettings,
+      onChanged: onChanged,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      initiallyShowDate: initiallyShowDate,
+      selectionLogic: selectionLogic,
+      selection: selection,
+      eventDecorationBuilder: eventDecorationBuilder,
+      onMonthChanged: onMonthChanged,
+      selectableDayPredicate: selectableDayPredicate,
+      datePickerKeys: datePickerKeys,
+      datePickerStyles: datePickerStyles,
+      datePickerLayoutSettings: datePickerLayoutSettings,
     );
   }
-
 
   /// Creates a day picker  where many single days can be selected.
   ///
   /// See also:
   /// * [DayPicker.single] - day picker where only one single day
   /// can be selected.
-  static DayPicker<List<DateTime>> multi({Key? key,
-    required List<DateTime> selectedDates,
-    required ValueChanged<List<DateTime>> onChanged,
-    required DateTime firstDate,
-    required DateTime lastDate,
-    DatePickerLayoutSettings datePickerLayoutSettings
-      = const DatePickerLayoutSettings(),
-    DateTime? initiallyShowDate,
-    DatePickerRangeStyles? datePickerStyles,
-    DatePickerKeys? datePickerKeys,
-    SelectableDayPredicate? selectableDayPredicate,
-    EventDecorationBuilder? eventDecorationBuilder,
-    ValueChanged<DateTime>? onMonthChanged})
-  {
+  static DayPicker<List<DateTime>> multi(
+      {Key? key,
+      required List<DateTime> selectedDates,
+      required ValueChanged<List<DateTime>> onChanged,
+      required DateTime firstDate,
+      required DateTime lastDate,
+      DatePickerLayoutSettings datePickerLayoutSettings =
+          const DatePickerLayoutSettings(),
+      DateTime? initiallyShowDate,
+      DatePickerRangeStyles? datePickerStyles,
+      DatePickerKeys? datePickerKeys,
+      SelectableDayPredicate? selectableDayPredicate,
+      EventDecorationBuilder? eventDecorationBuilder,
+      ValueChanged<DateTime>? onMonthChanged}) {
     assert(!firstDate.isAfter(lastDate));
     assert(!lastDate.isBefore(firstDate));
-    assert(initiallyShowDate == null
-        || !initiallyShowDate.isAfter(lastDate));
-    assert(initiallyShowDate == null
-    || !initiallyShowDate.isBefore(lastDate));
+    assert(initiallyShowDate == null || !initiallyShowDate.isAfter(lastDate));
+    assert(initiallyShowDate == null || !initiallyShowDate.isBefore(lastDate));
 
-    final selection =  DayPickerMultiSelection(selectedDates);
-    final selectionLogic =  DayMultiSelectable(
+    final selection = DayPickerMultiSelection(selectedDates);
+    final selectionLogic = DayMultiSelectable(
         selectedDates, firstDate, lastDate,
         selectableDayPredicate: selectableDayPredicate);
 
@@ -137,6 +132,9 @@ class DayPicker<T extends Object> extends StatelessWidget {
   /// The latest date the user is permitted to pick.
   final DateTime lastDate;
 
+  /// show week number
+  final bool showWeekNumber;
+
   /// Date for defining what month should be shown initially.
   ///
   /// In case of null earliest of the [selection] will be shown.
@@ -168,7 +166,7 @@ class DayPicker<T extends Object> extends StatelessWidget {
 
   /// Logic to handle user's selections.
   final ISelectablePicker<T> selectionLogic;
-  
+
   @override
   // ignore: prefer_expression_function_bodies
   Widget build(BuildContext context) {
@@ -177,6 +175,7 @@ class DayPicker<T extends Object> extends StatelessWidget {
       selection: selection,
       firstDate: firstDate,
       lastDate: lastDate,
+      showWeekNumber: showWeekNumber,
       initiallyShownDate: initiallyShowDate,
       onChanged: onChanged,
       datePickerLayoutSettings: datePickerLayoutSettings,

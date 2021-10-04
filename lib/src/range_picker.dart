@@ -21,6 +21,7 @@ class RangePicker extends StatelessWidget {
       required this.onChanged,
       required this.firstDate,
       required this.lastDate,
+      this.showWeekNumber = false,
       this.initiallyShowDate,
       this.datePickerLayoutSettings = const DatePickerLayoutSettings(),
       this.datePickerStyles,
@@ -33,10 +34,10 @@ class RangePicker extends StatelessWidget {
         assert(!lastDate.isBefore(firstDate)),
         assert(!selectedPeriod.start.isBefore(firstDate)),
         assert(!selectedPeriod.end.isAfter(lastDate)),
-        assert(initiallyShowDate == null
-            || !initiallyShowDate.isAfter(lastDate)),
-        assert(initiallyShowDate == null
-            || !initiallyShowDate.isBefore(firstDate)),
+        assert(
+            initiallyShowDate == null || !initiallyShowDate.isAfter(lastDate)),
+        assert(initiallyShowDate == null ||
+            !initiallyShowDate.isBefore(firstDate)),
         super(key: key);
 
   /// The currently selected period.
@@ -57,6 +58,9 @@ class RangePicker extends StatelessWidget {
 
   /// The latest date the user is permitted to pick.
   final DateTime lastDate;
+
+  /// show week number
+  final bool showWeekNumber;
 
   /// Date for defining what month should be shown initially.
   ///
@@ -96,6 +100,7 @@ class RangePicker extends StatelessWidget {
       selection: DayPickerRangeSelection(selectedPeriod),
       firstDate: firstDate,
       lastDate: lastDate,
+      showWeekNumber: showWeekNumber,
       initiallyShownDate: initiallyShowDate,
       onChanged: onChanged,
       onSelectionError: onSelectionError,

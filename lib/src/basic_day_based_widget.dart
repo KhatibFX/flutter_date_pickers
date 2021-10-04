@@ -28,6 +28,9 @@ class DayBasedPicker<T> extends StatelessWidget with CommonDatePickerFunctions {
   /// The month whose days are displayed by this picker.
   final DateTime displayedMonth;
 
+  /// Show week number
+  final bool showWeekNumber;
+
   /// Layout settings what can be customized by user
   final DatePickerLayoutSettings datePickerLayoutSettings;
 
@@ -54,6 +57,7 @@ class DayBasedPicker<T> extends StatelessWidget with CommonDatePickerFunctions {
       required this.firstDate,
       required this.lastDate,
       required this.displayedMonth,
+      required this.showWeekNumber,
       required this.datePickerLayoutSettings,
       required this.datePickerStyles,
       required this.selectablePicker,
@@ -79,15 +83,28 @@ class DayBasedPicker<T> extends StatelessWidget with CommonDatePickerFunctions {
 
     return Padding(
       padding: datePickerLayoutSettings.contentPadding,
-      child: Column(
-        children: <Widget>[
-          Flexible(
-            child: GridView.custom(
-              physics: datePickerLayoutSettings.scrollPhysics,
-              gridDelegate: datePickerLayoutSettings.dayPickerGridDelegate,
-              childrenDelegate:
-                  SliverChildListDelegate(labels, addRepaintBoundaries: false),
+      child: Row(
+        children: [
+          if (showWeekNumber)
+            Column(
+              children: [
+                Text('1'),
+                Text('2'),
+                Text('3'),
+              ],
             ),
+          if (showWeekNumber) VerticalDivider(),
+          Column(
+            children: <Widget>[
+              Flexible(
+                child: GridView.custom(
+                  physics: datePickerLayoutSettings.scrollPhysics,
+                  gridDelegate: datePickerLayoutSettings.dayPickerGridDelegate,
+                  childrenDelegate: SliverChildListDelegate(labels,
+                      addRepaintBoundaries: false),
+                ),
+              ),
+            ],
           ),
         ],
       ),
