@@ -84,6 +84,7 @@ class DayBasedPicker<T> extends StatelessWidget with CommonDatePickerFunctions {
     return Padding(
       padding: datePickerLayoutSettings.contentPadding,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (showWeekNumber)
             Column(
